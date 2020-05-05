@@ -4,12 +4,12 @@ import Card from '../UI/Card';
 import './Search.css';
 
 const Search = React.memo(props => {
-    const {onLoadIngredients} = props;
+    const { onLoadIngredients } = props;
     const [enteredFilter, setEnteredFilter] = useState('')
 
     // useEffect will execute everytime [enteredFilter] changes
     useEffect(() => {
-        const query = enteredFilter.length === 0 ? '' : `?orderBy="title"&equalTo"${enteredFilter}"`;
+        const query = enteredFilter.length === 0 ? '' : `?orderBy="title"&equalTo="${enteredFilter}"`;
         fetch('https://react-hook-99ae7.firebaseio.com/ingredients.json' + query).then(response => response.json()).then(responseData => {
             const loadedIngredients = [];
             for (const key in responseData) {
@@ -21,14 +21,15 @@ const Search = React.memo(props => {
             }
             onLoadIngredients(loadedIngredients);
         });
-    }, [enteredFilter,  ])
+    }, [enteredFilter, onLoadIngredients])
     // onLoadIngredients as the second argument in []
+   
     return (
         <section className="search">
             <Card>
                 <div className="search-input">
                     <label>Filter by Title</label>
-                    <input type="text" value={enteredFilter} onChange={event => setEnteredFilter(event.target.value)}/>
+                    <input type="text" value={ enteredFilter } onChange={ event => setEnteredFilter(event.target.value) } />
                 </div>
             </Card>
         </section>

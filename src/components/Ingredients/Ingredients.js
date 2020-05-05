@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
@@ -9,27 +9,14 @@ const Ingredients = () => {
 
     // useEffect renders every cycle after everything finished
     // with an [] at the end, it is like component did mount.
-    useEffect(() => {
-        fetch('https://react-hook-99ae7.firebaseio.com/ingredients.json').then(response => response.json()).then(responseData => {
-            const loadedIngredients = [];
-            for (const key in responseData) {
-                loadedIngredients.push({
-                    id: key,
-                    title: responseData[key].title,
-                    amount: responseData[key].amount
-                });
-            }
-            setUserIngredients(loadedIngredients);
-        });
-    }, []);
 
     useEffect(() => {
         console.log('rendering ingredients', userIngredients);
     })
 
-    const filterIngredientsHandler = (filteredIngredients) => {
+    const filterIngredientsHandler = useCallback((filteredIngredients) => {
         setUserIngredients(filteredIngredients);
-    }
+    }, []);
 
     const addIngredientHandler = ingredient => {
         fetch('https://react-hook-99ae7.firebaseio.com/ingredients.json', {
