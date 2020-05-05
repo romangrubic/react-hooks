@@ -7,7 +7,7 @@ import './IngredientForm.css';
 const IngredientForm = React.memo(props => {
     // split your state into multiple states (manage independetly)
     const [enteredTitle, setEnteredTitle] = useState('');
-    const [enteredAmount, setEnteredAmount] = useState('')
+    const [enteredAmount, setEnteredAmount] = useState('');
 
     const submitHandler = event => {
         event.preventDefault();
