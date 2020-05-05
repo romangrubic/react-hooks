@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Card from '../UI/Card';
+import LoadingIndicator from '../UI/LoadingIndicator';
 import './IngredientForm.css';
 
 const IngredientForm = React.memo(props => {
@@ -37,6 +38,8 @@ const IngredientForm = React.memo(props => {
                     </div>
                     <div className="ingredient-form__actions">
                         <button type="submit">Add Ingredient</button>
+                        {/* this will render only if props.loading is true */}
+                        {props.loading && <LoadingIndicator />}
                     </div>
                 </form>
             </Card>
