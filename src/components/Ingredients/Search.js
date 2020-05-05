@@ -10,7 +10,7 @@ const Search = React.memo(props => {
 
     // useEffect will execute everytime [enteredFilter] changes
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             if (enteredFilter === inputRef.current.value) {
                 const query = enteredFilter.length === 0 ? '' : `?orderBy="title"&equalTo="${enteredFilter}"`;
                 fetch('https://react-hook-99ae7.firebaseio.com/ingredients.json' + query).then(response => response.json()).then(responseData => {
@@ -25,7 +25,10 @@ const Search = React.memo(props => {
                     onLoadIngredients(loadedIngredients);
                 });
             }
-        }, 500)
+        }, 500);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [enteredFilter, onLoadIngredients, inputRef])
     // onLoadIngredients as the second argument in []
 
